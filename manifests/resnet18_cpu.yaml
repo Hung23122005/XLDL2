@@ -1,0 +1,45 @@
+name: ResNet18
+version: 1.0.0
+task: classification
+license: unknown
+description: ResNet18 ONNX model for profiling
+
+framework:
+  name: ONNXRuntime
+  version: ">=1.23"
+
+container:
+  amd64:
+    cpu: null
+    gpu: null
+
+envvars: []
+
+inputs:
+  - type: image
+    layer_name: input
+    shape: [batch_size, 3, 224, 224]
+    element_type: float32
+
+preprocessing:
+  enabled: false
+  description: Input tensor is generated directly for profiling
+
+outputs:
+  - type: probability
+    layer_name: output
+    shape: [batch_size, 1000]
+    element_type: float32
+
+post_processing:
+  enabled: false
+
+source:
+  type: local
+  path: resnet18_clean.onnx
+
+profiling:
+  backend: onnxruntime
+  device: cpu
+  batch_size: 1
+  report_path: reports/resnet18_cpu.json

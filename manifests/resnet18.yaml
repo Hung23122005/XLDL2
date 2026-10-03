@@ -1,0 +1,26 @@
+model:
+  id: resnet18_v1
+  name: ResNet18
+  version: 1.0.0
+  task: classification
+source:
+  framework: pytorch
+  type: torchvision
+  model_name: resnet18
+  weights: null
+inputs:
+  - type: image
+    shape: [batch_size, 3, 224, 224]
+    element_type: float32
+outputs:
+  - type: logits
+    shape: [batch_size, 1000]
+    element_type: float32
+profiling:
+  batch_size: 1
+artifacts:
+  pytorch:
+    path: models/resnet18_v1/pytorch/resnet18.pth
+  onnx:
+    path: models/resnet18_v1/onnx/resnet18.onnx
+    opset_version: 13

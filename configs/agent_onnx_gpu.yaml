@@ -1,0 +1,5 @@
+agent_id: agent_onnx_gpu
+runtime:
+  backend: onnxruntime
+  device: gpu
+  provider: CUDAExecutionProvider

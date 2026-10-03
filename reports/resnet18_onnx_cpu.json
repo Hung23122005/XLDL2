@@ -1,0 +1,2190 @@
+{
+  "subjects": [
+    "model",
+    "model.analyze",
+    "model.bench.layer_prof",
+    "model.bench.e2e_prof",
+    "model.bench"
+  ],
+  "roofline": null,
+  "model": {
+    "name": "resnet18.onnx",
+    "path": "E:\\DHBKDN\\HK7\\XLDL\\Proof\\XLDL2\\models\\resnet18_v1\\onnx\\resnet18.onnx",
+    "backend": "ONNXRuntimeBackend",
+    "backend_options": "providers=CPUExecutionProvider,strict_provider=true",
+    "backend_version_info": "Using backend <class 'model.backend.onnxruntime.ONNXRuntimeBackend'>\nonnxruntime version: 1.23.2\navailable providers: ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']\ngraph_optimization_level: GraphOptimizationLevel.ORT_ENABLE_ALL",
+    "data_width_onnx": 32,
+    "data_width_backend": 32,
+    "llc_reuse_size": 0.0,
+    "inputs_shape_override": {},
+    "analyze": {
+      "inputs": {
+        "input": [
+          "batch_size",
+          3,
+          224,
+          224
+        ]
+      },
+      "nodes": {
+        "/conv1/Conv": {
+          "name": "/conv1/Conv",
+          "type": "Conv",
+          "flops": 236830720,
+          "memory": 962816,
+          "params": 9472,
+          "inputs": [
+            {
+              "name": "input",
+              "shape": [
+                1,
+                3,
+                224,
+                224
+              ]
+            },
+            {
+              "name": "onnx::Conv_193",
+              "shape": [
+                64,
+                3,
+                7,
+                7
+              ]
+            },
+            {
+              "name": "onnx::Conv_194",
+              "shape": [
+                64
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/conv1/Conv_output_0",
+              "shape": [
+                1,
+                64,
+                112,
+                112
+              ]
+            }
+          ]
+        },
+        "/relu/Relu": {
+          "name": "/relu/Relu",
+          "type": "Relu",
+          "flops": 802816,
+          "memory": 1605632,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/conv1/Conv_output_0",
+              "shape": [
+                1,
+                64,
+                112,
+                112
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/relu/Relu_output_0",
+              "shape": [
+                1,
+                64,
+                112,
+                112
+              ]
+            }
+          ]
+        },
+        "/maxpool/MaxPool": {
+          "name": "/maxpool/MaxPool",
+          "type": "MaxPool",
+          "flops": 1806336,
+          "memory": 1003520,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/relu/Relu_output_0",
+              "shape": [
+                1,
+                64,
+                112,
+                112
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/maxpool/MaxPool_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ]
+        },
+        "/layer1/layer1.0/conv1/Conv": {
+          "name": "/layer1/layer1.0/conv1/Conv",
+          "type": "Conv",
+          "flops": 231411712,
+          "memory": 438336,
+          "params": 36864,
+          "inputs": [
+            {
+              "name": "/maxpool/MaxPool_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            },
+            {
+              "name": "onnx::Conv_196",
+              "shape": [
+                64,
+                64,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_197",
+              "shape": [
+                64
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer1/layer1.0/conv1/Conv_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ]
+        },
+        "/layer1/layer1.0/relu/Relu": {
+          "name": "/layer1/layer1.0/relu/Relu",
+          "type": "Relu",
+          "flops": 200704,
+          "memory": 401408,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer1/layer1.0/conv1/Conv_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer1/layer1.0/relu/Relu_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ]
+        },
+        "/layer1/layer1.0/conv2/Conv": {
+          "name": "/layer1/layer1.0/conv2/Conv",
+          "type": "Conv",
+          "flops": 231411712,
+          "memory": 438336,
+          "params": 36864,
+          "inputs": [
+            {
+              "name": "/layer1/layer1.0/relu/Relu_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            },
+            {
+              "name": "onnx::Conv_199",
+              "shape": [
+                64,
+                64,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_200",
+              "shape": [
+                64
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer1/layer1.0/conv2/Conv_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ]
+        },
+        "/layer1/layer1.0/Add": {
+          "name": "/layer1/layer1.0/Add",
+          "type": "Add",
+          "flops": 200704,
+          "memory": 602112,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer1/layer1.0/conv2/Conv_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            },
+            {
+              "name": "/maxpool/MaxPool_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer1/layer1.0/Add_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ]
+        },
+        "/layer1/layer1.0/relu_1/Relu": {
+          "name": "/layer1/layer1.0/relu_1/Relu",
+          "type": "Relu",
+          "flops": 200704,
+          "memory": 401408,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer1/layer1.0/Add_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer1/layer1.0/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ]
+        },
+        "/layer1/layer1.1/conv1/Conv": {
+          "name": "/layer1/layer1.1/conv1/Conv",
+          "type": "Conv",
+          "flops": 231411712,
+          "memory": 438336,
+          "params": 36864,
+          "inputs": [
+            {
+              "name": "/layer1/layer1.0/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            },
+            {
+              "name": "onnx::Conv_202",
+              "shape": [
+                64,
+                64,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_203",
+              "shape": [
+                64
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer1/layer1.1/conv1/Conv_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ]
+        },
+        "/layer1/layer1.1/relu/Relu": {
+          "name": "/layer1/layer1.1/relu/Relu",
+          "type": "Relu",
+          "flops": 200704,
+          "memory": 401408,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer1/layer1.1/conv1/Conv_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer1/layer1.1/relu/Relu_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ]
+        },
+        "/layer1/layer1.1/conv2/Conv": {
+          "name": "/layer1/layer1.1/conv2/Conv",
+          "type": "Conv",
+          "flops": 231411712,
+          "memory": 438336,
+          "params": 36864,
+          "inputs": [
+            {
+              "name": "/layer1/layer1.1/relu/Relu_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            },
+            {
+              "name": "onnx::Conv_205",
+              "shape": [
+                64,
+                64,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_206",
+              "shape": [
+                64
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer1/layer1.1/conv2/Conv_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ]
+        },
+        "/layer1/layer1.1/Add": {
+          "name": "/layer1/layer1.1/Add",
+          "type": "Add",
+          "flops": 200704,
+          "memory": 602112,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer1/layer1.1/conv2/Conv_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            },
+            {
+              "name": "/layer1/layer1.0/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer1/layer1.1/Add_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ]
+        },
+        "/layer1/layer1.1/relu_1/Relu": {
+          "name": "/layer1/layer1.1/relu_1/Relu",
+          "type": "Relu",
+          "flops": 200704,
+          "memory": 401408,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer1/layer1.1/Add_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer1/layer1.1/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            }
+          ]
+        },
+        "/layer2/layer2.0/conv1/Conv": {
+          "name": "/layer2/layer2.0/conv1/Conv",
+          "type": "Conv",
+          "flops": 115705856,
+          "memory": 374912,
+          "params": 73856,
+          "inputs": [
+            {
+              "name": "/layer1/layer1.1/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            },
+            {
+              "name": "onnx::Conv_208",
+              "shape": [
+                128,
+                64,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_209",
+              "shape": [
+                128
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer2/layer2.0/conv1/Conv_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ]
+        },
+        "/layer2/layer2.0/relu/Relu": {
+          "name": "/layer2/layer2.0/relu/Relu",
+          "type": "Relu",
+          "flops": 100352,
+          "memory": 200704,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer2/layer2.0/conv1/Conv_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer2/layer2.0/relu/Relu_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ]
+        },
+        "/layer2/layer2.0/conv2/Conv": {
+          "name": "/layer2/layer2.0/conv2/Conv",
+          "type": "Conv",
+          "flops": 231311360,
+          "memory": 348288,
+          "params": 147456,
+          "inputs": [
+            {
+              "name": "/layer2/layer2.0/relu/Relu_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            },
+            {
+              "name": "onnx::Conv_211",
+              "shape": [
+                128,
+                128,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_212",
+              "shape": [
+                128
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer2/layer2.0/conv2/Conv_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ]
+        },
+        "/layer2/layer2.0/downsample/downsample.0/Conv": {
+          "name": "/layer2/layer2.0/downsample/downsample.0/Conv",
+          "type": "Conv",
+          "flops": 12945408,
+          "memory": 158848,
+          "params": 8192,
+          "inputs": [
+            {
+              "name": "/layer1/layer1.1/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                64,
+                56,
+                56
+              ]
+            },
+            {
+              "name": "onnx::Conv_214",
+              "shape": [
+                128,
+                64,
+                1,
+                1
+              ]
+            },
+            {
+              "name": "onnx::Conv_215",
+              "shape": [
+                128
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer2/layer2.0/downsample/downsample.0/Conv_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ]
+        },
+        "/layer2/layer2.0/Add": {
+          "name": "/layer2/layer2.0/Add",
+          "type": "Add",
+          "flops": 100352,
+          "memory": 301056,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer2/layer2.0/conv2/Conv_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            },
+            {
+              "name": "/layer2/layer2.0/downsample/downsample.0/Conv_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer2/layer2.0/Add_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ]
+        },
+        "/layer2/layer2.0/relu_1/Relu": {
+          "name": "/layer2/layer2.0/relu_1/Relu",
+          "type": "Relu",
+          "flops": 100352,
+          "memory": 200704,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer2/layer2.0/Add_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer2/layer2.0/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ]
+        },
+        "/layer2/layer2.1/conv1/Conv": {
+          "name": "/layer2/layer2.1/conv1/Conv",
+          "type": "Conv",
+          "flops": 231311360,
+          "memory": 348288,
+          "params": 147456,
+          "inputs": [
+            {
+              "name": "/layer2/layer2.0/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            },
+            {
+              "name": "onnx::Conv_217",
+              "shape": [
+                128,
+                128,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_218",
+              "shape": [
+                128
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer2/layer2.1/conv1/Conv_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ]
+        },
+        "/layer2/layer2.1/relu/Relu": {
+          "name": "/layer2/layer2.1/relu/Relu",
+          "type": "Relu",
+          "flops": 100352,
+          "memory": 200704,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer2/layer2.1/conv1/Conv_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer2/layer2.1/relu/Relu_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ]
+        },
+        "/layer2/layer2.1/conv2/Conv": {
+          "name": "/layer2/layer2.1/conv2/Conv",
+          "type": "Conv",
+          "flops": 231311360,
+          "memory": 348288,
+          "params": 147456,
+          "inputs": [
+            {
+              "name": "/layer2/layer2.1/relu/Relu_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            },
+            {
+              "name": "onnx::Conv_220",
+              "shape": [
+                128,
+                128,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_221",
+              "shape": [
+                128
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer2/layer2.1/conv2/Conv_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ]
+        },
+        "/layer2/layer2.1/Add": {
+          "name": "/layer2/layer2.1/Add",
+          "type": "Add",
+          "flops": 100352,
+          "memory": 301056,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer2/layer2.1/conv2/Conv_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            },
+            {
+              "name": "/layer2/layer2.0/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer2/layer2.1/Add_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ]
+        },
+        "/layer2/layer2.1/relu_1/Relu": {
+          "name": "/layer2/layer2.1/relu_1/Relu",
+          "type": "Relu",
+          "flops": 100352,
+          "memory": 200704,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer2/layer2.1/Add_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer2/layer2.1/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            }
+          ]
+        },
+        "/layer3/layer3.0/conv1/Conv": {
+          "name": "/layer3/layer3.0/conv1/Conv",
+          "type": "Conv",
+          "flops": 115655680,
+          "memory": 445696,
+          "params": 295168,
+          "inputs": [
+            {
+              "name": "/layer2/layer2.1/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            },
+            {
+              "name": "onnx::Conv_223",
+              "shape": [
+                256,
+                128,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_224",
+              "shape": [
+                256
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer3/layer3.0/conv1/Conv_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ]
+        },
+        "/layer3/layer3.0/relu/Relu": {
+          "name": "/layer3/layer3.0/relu/Relu",
+          "type": "Relu",
+          "flops": 50176,
+          "memory": 100352,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer3/layer3.0/conv1/Conv_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer3/layer3.0/relu/Relu_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ]
+        },
+        "/layer3/layer3.0/conv2/Conv": {
+          "name": "/layer3/layer3.0/conv2/Conv",
+          "type": "Conv",
+          "flops": 231261184,
+          "memory": 690432,
+          "params": 589824,
+          "inputs": [
+            {
+              "name": "/layer3/layer3.0/relu/Relu_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            },
+            {
+              "name": "onnx::Conv_226",
+              "shape": [
+                256,
+                256,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_227",
+              "shape": [
+                256
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer3/layer3.0/conv2/Conv_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ]
+        },
+        "/layer3/layer3.0/downsample/downsample.0/Conv": {
+          "name": "/layer3/layer3.0/downsample/downsample.0/Conv",
+          "type": "Conv",
+          "flops": 12895232,
+          "memory": 108288,
+          "params": 32768,
+          "inputs": [
+            {
+              "name": "/layer2/layer2.1/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                128,
+                28,
+                28
+              ]
+            },
+            {
+              "name": "onnx::Conv_229",
+              "shape": [
+                256,
+                128,
+                1,
+                1
+              ]
+            },
+            {
+              "name": "onnx::Conv_230",
+              "shape": [
+                256
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer3/layer3.0/downsample/downsample.0/Conv_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ]
+        },
+        "/layer3/layer3.0/Add": {
+          "name": "/layer3/layer3.0/Add",
+          "type": "Add",
+          "flops": 50176,
+          "memory": 150528,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer3/layer3.0/conv2/Conv_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            },
+            {
+              "name": "/layer3/layer3.0/downsample/downsample.0/Conv_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer3/layer3.0/Add_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ]
+        },
+        "/layer3/layer3.0/relu_1/Relu": {
+          "name": "/layer3/layer3.0/relu_1/Relu",
+          "type": "Relu",
+          "flops": 50176,
+          "memory": 100352,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer3/layer3.0/Add_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer3/layer3.0/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ]
+        },
+        "/layer3/layer3.1/conv1/Conv": {
+          "name": "/layer3/layer3.1/conv1/Conv",
+          "type": "Conv",
+          "flops": 231261184,
+          "memory": 690432,
+          "params": 589824,
+          "inputs": [
+            {
+              "name": "/layer3/layer3.0/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            },
+            {
+              "name": "onnx::Conv_232",
+              "shape": [
+                256,
+                256,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_233",
+              "shape": [
+                256
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer3/layer3.1/conv1/Conv_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ]
+        },
+        "/layer3/layer3.1/relu/Relu": {
+          "name": "/layer3/layer3.1/relu/Relu",
+          "type": "Relu",
+          "flops": 50176,
+          "memory": 100352,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer3/layer3.1/conv1/Conv_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer3/layer3.1/relu/Relu_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ]
+        },
+        "/layer3/layer3.1/conv2/Conv": {
+          "name": "/layer3/layer3.1/conv2/Conv",
+          "type": "Conv",
+          "flops": 231261184,
+          "memory": 690432,
+          "params": 589824,
+          "inputs": [
+            {
+              "name": "/layer3/layer3.1/relu/Relu_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            },
+            {
+              "name": "onnx::Conv_235",
+              "shape": [
+                256,
+                256,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_236",
+              "shape": [
+                256
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer3/layer3.1/conv2/Conv_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ]
+        },
+        "/layer3/layer3.1/Add": {
+          "name": "/layer3/layer3.1/Add",
+          "type": "Add",
+          "flops": 50176,
+          "memory": 150528,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer3/layer3.1/conv2/Conv_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            },
+            {
+              "name": "/layer3/layer3.0/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer3/layer3.1/Add_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ]
+        },
+        "/layer3/layer3.1/relu_1/Relu": {
+          "name": "/layer3/layer3.1/relu_1/Relu",
+          "type": "Relu",
+          "flops": 50176,
+          "memory": 100352,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer3/layer3.1/Add_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer3/layer3.1/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            }
+          ]
+        },
+        "/layer4/layer4.0/conv1/Conv": {
+          "name": "/layer4/layer4.0/conv1/Conv",
+          "type": "Conv",
+          "flops": 115630592,
+          "memory": 1255424,
+          "params": 1180160,
+          "inputs": [
+            {
+              "name": "/layer3/layer3.1/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            },
+            {
+              "name": "onnx::Conv_238",
+              "shape": [
+                512,
+                256,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_239",
+              "shape": [
+                512
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer4/layer4.0/conv1/Conv_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ]
+        },
+        "/layer4/layer4.0/relu/Relu": {
+          "name": "/layer4/layer4.0/relu/Relu",
+          "type": "Relu",
+          "flops": 25088,
+          "memory": 50176,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer4/layer4.0/conv1/Conv_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer4/layer4.0/relu/Relu_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ]
+        },
+        "/layer4/layer4.0/conv2/Conv": {
+          "name": "/layer4/layer4.0/conv2/Conv",
+          "type": "Conv",
+          "flops": 231236096,
+          "memory": 2409984,
+          "params": 2359296,
+          "inputs": [
+            {
+              "name": "/layer4/layer4.0/relu/Relu_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            },
+            {
+              "name": "onnx::Conv_241",
+              "shape": [
+                512,
+                512,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_242",
+              "shape": [
+                512
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer4/layer4.0/conv2/Conv_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ]
+        },
+        "/layer4/layer4.0/downsample/downsample.0/Conv": {
+          "name": "/layer4/layer4.0/downsample/downsample.0/Conv",
+          "type": "Conv",
+          "flops": 12870144,
+          "memory": 169216,
+          "params": 131072,
+          "inputs": [
+            {
+              "name": "/layer3/layer3.1/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                256,
+                14,
+                14
+              ]
+            },
+            {
+              "name": "onnx::Conv_244",
+              "shape": [
+                512,
+                256,
+                1,
+                1
+              ]
+            },
+            {
+              "name": "onnx::Conv_245",
+              "shape": [
+                512
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer4/layer4.0/downsample/downsample.0/Conv_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ]
+        },
+        "/layer4/layer4.0/Add": {
+          "name": "/layer4/layer4.0/Add",
+          "type": "Add",
+          "flops": 25088,
+          "memory": 75264,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer4/layer4.0/conv2/Conv_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            },
+            {
+              "name": "/layer4/layer4.0/downsample/downsample.0/Conv_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer4/layer4.0/Add_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ]
+        },
+        "/layer4/layer4.0/relu_1/Relu": {
+          "name": "/layer4/layer4.0/relu_1/Relu",
+          "type": "Relu",
+          "flops": 25088,
+          "memory": 50176,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer4/layer4.0/Add_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer4/layer4.0/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ]
+        },
+        "/layer4/layer4.1/conv1/Conv": {
+          "name": "/layer4/layer4.1/conv1/Conv",
+          "type": "Conv",
+          "flops": 231236096,
+          "memory": 2409984,
+          "params": 2359296,
+          "inputs": [
+            {
+              "name": "/layer4/layer4.0/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            },
+            {
+              "name": "onnx::Conv_247",
+              "shape": [
+                512,
+                512,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_248",
+              "shape": [
+                512
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer4/layer4.1/conv1/Conv_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ]
+        },
+        "/layer4/layer4.1/relu/Relu": {
+          "name": "/layer4/layer4.1/relu/Relu",
+          "type": "Relu",
+          "flops": 25088,
+          "memory": 50176,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer4/layer4.1/conv1/Conv_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer4/layer4.1/relu/Relu_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ]
+        },
+        "/layer4/layer4.1/conv2/Conv": {
+          "name": "/layer4/layer4.1/conv2/Conv",
+          "type": "Conv",
+          "flops": 231236096,
+          "memory": 2409984,
+          "params": 2359296,
+          "inputs": [
+            {
+              "name": "/layer4/layer4.1/relu/Relu_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            },
+            {
+              "name": "onnx::Conv_250",
+              "shape": [
+                512,
+                512,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "onnx::Conv_251",
+              "shape": [
+                512
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer4/layer4.1/conv2/Conv_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ]
+        },
+        "/layer4/layer4.1/Add": {
+          "name": "/layer4/layer4.1/Add",
+          "type": "Add",
+          "flops": 25088,
+          "memory": 75264,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer4/layer4.1/conv2/Conv_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            },
+            {
+              "name": "/layer4/layer4.0/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer4/layer4.1/Add_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ]
+        },
+        "/layer4/layer4.1/relu_1/Relu": {
+          "name": "/layer4/layer4.1/relu_1/Relu",
+          "type": "Relu",
+          "flops": 25088,
+          "memory": 50176,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer4/layer4.1/Add_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/layer4/layer4.1/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ]
+        },
+        "/avgpool/GlobalAveragePool": {
+          "name": "/avgpool/GlobalAveragePool",
+          "type": "GlobalAveragePool",
+          "flops": 25600,
+          "memory": 25600,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/layer4/layer4.1/relu_1/Relu_output_0",
+              "shape": [
+                1,
+                512,
+                7,
+                7
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/avgpool/GlobalAveragePool_output_0",
+              "shape": [
+                1,
+                512,
+                1,
+                1
+              ]
+            }
+          ]
+        },
+        "/Flatten": {
+          "name": "/Flatten",
+          "type": "Flatten",
+          "flops": 0,
+          "memory": 0,
+          "params": 0,
+          "inputs": [
+            {
+              "name": "/avgpool/GlobalAveragePool_output_0",
+              "shape": [
+                1,
+                512,
+                1,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "/Flatten_output_0",
+              "shape": [
+                1,
+                512
+              ]
+            }
+          ]
+        },
+        "/fc/Gemm": {
+          "name": "/fc/Gemm",
+          "type": "Gemm",
+          "flops": 1025000,
+          "memory": 514512,
+          "params": 513000,
+          "inputs": [
+            {
+              "name": "/Flatten_output_0",
+              "shape": [
+                1,
+                512
+              ]
+            },
+            {
+              "name": "fc.weight",
+              "shape": [
+                1000,
+                512
+              ]
+            },
+            {
+              "name": "fc.bias",
+              "shape": [
+                1000
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "output",
+              "shape": [
+                1,
+                1000
+              ]
+            }
+          ]
+        }
+      },
+      "total_flops": 3635524072,
+      "total_memory": 23992400,
+      "total_memory_effort_fused": 17870928,
+      "total_params": 11680872
+    },
+    "bench": {
+      "batch_size_list": [
+        1
+      ],
+      "results": {
+        "1": {
+          "batch_size": 1,
+          "times": [
+            0.009337999999999999,
+            0.009437,
+            0.009389,
+            0.009484999999999999,
+            0.00973,
+            0.011212999999999999,
+            0.011039,
+            0.012369999999999999,
+            0.01033,
+            0.008705000000000001
+          ],
+          "time_avg": 0.0101036,
+          "time_min": 0.008705000000000001,
+          "time_std": 0.0010636279612721733,
+          "flops_avg": 359824624094.3822,
+          "flops_max": 417636309247.55884,
+          "flops_std": 35798096664.2538,
+          "memory_avg": 7363110178.55022,
+          "memory_max": 8546113727.742676,
+          "memory_std": 732538331.9295936,
+          "layer_prof": [
+            {
+              "name": "/relu/Relu_output_0_nchwc",
+              "median_time": 0.0006095,
+              "time_percentage": 7.1904677638176135,
+              "flops": 237633536,
+              "memory": 3851264.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/conv1/Conv",
+                  "/relu/Relu"
+                ]
+              }
+            },
+            {
+              "name": "/maxpool/MaxPool_output_0_nchwc",
+              "median_time": 8.5e-05,
+              "time_percentage": 1.0027723706718576,
+              "flops": 1806336,
+              "memory": 4014080.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/maxpool/MaxPool"
+                ]
+              }
+            },
+            {
+              "name": "/layer1/layer1.0/relu/Relu_output_0_nchwc",
+              "median_time": 0.0005165,
+              "time_percentage": 6.093316817082523,
+              "flops": 231612416,
+              "memory": 1753344.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer1/layer1.0/conv1/Conv",
+                  "/layer1/layer1.0/relu/Relu"
+                ]
+              }
+            },
+            {
+              "name": "/layer1/layer1.0/conv2/Conv_output_0_nchwc",
+              "median_time": 0.000498,
+              "time_percentage": 5.8750663599362944,
+              "flops": 231411712,
+              "memory": 1753344.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer1/layer1.0/conv2/Conv"
+                ]
+              }
+            },
+            {
+              "name": "/layer1/layer1.1/relu/Relu_output_0_nchwc",
+              "median_time": 0.000491,
+              "time_percentage": 5.792485105880965,
+              "flops": 232013824,
+              "memory": 3358976.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer1/layer1.0/Add",
+                  "/layer1/layer1.0/relu_1/Relu",
+                  "/layer1/layer1.1/conv1/Conv",
+                  "/layer1/layer1.1/relu/Relu"
+                ]
+              }
+            },
+            {
+              "name": "/layer1/layer1.1/conv2/Conv_output_0_nchwc",
+              "median_time": 0.0004975,
+              "time_percentage": 5.869167698932342,
+              "flops": 231411712,
+              "memory": 1753344.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer1/layer1.1/conv2/Conv"
+                ]
+              }
+            },
+            {
+              "name": "/layer2/layer2.0/relu/Relu_output_0_nchwc",
+              "median_time": 0.00026,
+              "time_percentage": 3.0673037220550934,
+              "flops": 116207616,
+              "memory": 3105280.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer1/layer1.1/Add",
+                  "/layer1/layer1.1/relu_1/Relu",
+                  "/layer2/layer2.0/conv1/Conv",
+                  "/layer2/layer2.0/relu/Relu"
+                ]
+              }
+            },
+            {
+              "name": "/layer2/layer2.0/downsample/downsample.0/Conv_output_0_nchwc",
+              "median_time": 5.6e-05,
+              "time_percentage": 0.6606500324426355,
+              "flops": 12945408,
+              "memory": 635392.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer2/layer2.0/downsample/downsample.0/Conv"
+                ]
+              }
+            },
+            {
+              "name": "/layer2/layer2.0/conv2/Conv_output_0_nchwc",
+              "median_time": 0.000484,
+              "time_percentage": 5.7099038518256355,
+              "flops": 231311360,
+              "memory": 1393152.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer2/layer2.0/conv2/Conv"
+                ]
+              }
+            },
+            {
+              "name": "/layer2/layer2.1/relu/Relu_output_0_nchwc",
+              "median_time": 0.0004835,
+              "time_percentage": 5.704005190821683,
+              "flops": 231612416,
+              "memory": 2195968.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer2/layer2.0/Add",
+                  "/layer2/layer2.0/relu_1/Relu",
+                  "/layer2/layer2.1/conv1/Conv",
+                  "/layer2/layer2.1/relu/Relu"
+                ]
+              }
+            },
+            {
+              "name": "/layer2/layer2.1/conv2/Conv_output_0_nchwc",
+              "median_time": 0.0004965,
+              "time_percentage": 5.857370376924438,
+              "flops": 231311360,
+              "memory": 1393152.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer2/layer2.1/conv2/Conv"
+                ]
+              }
+            },
+            {
+              "name": "/layer3/layer3.0/relu/Relu_output_0_nchwc",
+              "median_time": 0.000276,
+              "time_percentage": 3.2560608741815606,
+              "flops": 115906560,
+              "memory": 2585600.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer2/layer2.1/Add",
+                  "/layer2/layer2.1/relu_1/Relu",
+                  "/layer3/layer3.0/conv1/Conv",
+                  "/layer3/layer3.0/relu/Relu"
+                ]
+              }
+            },
+            {
+              "name": "/layer3/layer3.0/downsample/downsample.0/Conv_output_0_nchwc",
+              "median_time": 5.7e-05,
+              "time_percentage": 0.6724473544505398,
+              "flops": 12895232,
+              "memory": 433152.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer3/layer3.0/downsample/downsample.0/Conv"
+                ]
+              }
+            },
+            {
+              "name": "/layer3/layer3.0/conv2/Conv_output_0_nchwc",
+              "median_time": 0.0004945,
+              "time_percentage": 5.833775732908631,
+              "flops": 231261184,
+              "memory": 2761728.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer3/layer3.0/conv2/Conv"
+                ]
+              }
+            },
+            {
+              "name": "/layer3/layer3.1/relu/Relu_output_0_nchwc",
+              "median_time": 0.000483,
+              "time_percentage": 5.698106529817731,
+              "flops": 231411712,
+              "memory": 3163136.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer3/layer3.0/Add",
+                  "/layer3/layer3.0/relu_1/Relu",
+                  "/layer3/layer3.1/conv1/Conv",
+                  "/layer3/layer3.1/relu/Relu"
+                ]
+              }
+            },
+            {
+              "name": "/layer3/layer3.1/conv2/Conv_output_0_nchwc",
+              "median_time": 0.000484,
+              "time_percentage": 5.7099038518256355,
+              "flops": 231261184,
+              "memory": 2761728.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer3/layer3.1/conv2/Conv"
+                ]
+              }
+            },
+            {
+              "name": "/layer4/layer4.0/relu/Relu_output_0_nchwc",
+              "median_time": 0.000316,
+              "time_percentage": 3.7279537544977286,
+              "flops": 115756032,
+              "memory": 5423104.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer3/layer3.1/Add",
+                  "/layer3/layer3.1/relu_1/Relu",
+                  "/layer4/layer4.0/conv1/Conv",
+                  "/layer4/layer4.0/relu/Relu"
+                ]
+              }
+            },
+            {
+              "name": "/layer4/layer4.0/downsample/downsample.0/Conv_output_0_nchwc",
+              "median_time": 6.55e-05,
+              "time_percentage": 0.7727245915177255,
+              "flops": 12870144,
+              "memory": 676864.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer4/layer4.0/downsample/downsample.0/Conv"
+                ]
+              }
+            },
+            {
+              "name": "/layer4/layer4.0/conv2/Conv_output_0_nchwc",
+              "median_time": 0.000564,
+              "time_percentage": 6.653689612457973,
+              "flops": 231236096,
+              "memory": 9639936.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer4/layer4.0/conv2/Conv"
+                ]
+              }
+            },
+            {
+              "name": "/layer4/layer4.1/relu/Relu_output_0_nchwc",
+              "median_time": 0.000568,
+              "time_percentage": 6.70087890048959,
+              "flops": 231311360,
+              "memory": 9840640.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer4/layer4.0/Add",
+                  "/layer4/layer4.0/relu_1/Relu",
+                  "/layer4/layer4.1/conv1/Conv",
+                  "/layer4/layer4.1/relu/Relu"
+                ]
+              }
+            },
+            {
+              "name": "/layer4/layer4.1/conv2/Conv_output_0_nchwc",
+              "median_time": 0.00056,
+              "time_percentage": 6.606500324426355,
+              "flops": 231236096,
+              "memory": 9639936.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer4/layer4.1/conv2/Conv"
+                ]
+              }
+            },
+            {
+              "name": "/avgpool/GlobalAveragePool_output_0_nchwc",
+              "median_time": 3.05e-05,
+              "time_percentage": 0.3598183212410783,
+              "flops": 75776,
+              "memory": 202752.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/layer4/layer4.1/Add",
+                  "/layer4/layer4.1/relu_1/Relu",
+                  "/avgpool/GlobalAveragePool"
+                ]
+              }
+            },
+            {
+              "name": "/Flatten",
+              "median_time": 1.85e-05,
+              "time_percentage": 0.21825045714622782,
+              "flops": 0,
+              "memory": 0.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/Flatten"
+                ]
+              }
+            },
+            {
+              "name": "/fc/Gemm",
+              "median_time": 8.2e-05,
+              "time_percentage": 0.967380404648145,
+              "flops": 1025000,
+              "memory": 2058048.0,
+              "extra": {
+                "onnx_nodes": [
+                  "/fc/Gemm"
+                ]
+              }
+            }
+          ],
+          "better_total_flops": 3635524072,
+          "better_total_memory": 74393920.0
+        }
+      }
+    }
+  },
+  "model_id": "resnet18_v1",
+  "source_framework": "pytorch",
+  "artifact_format": "onnx",
+  "artifact_path": "E:\\DHBKDN\\HK7\\XLDL\\Proof\\XLDL2\\models\\resnet18_v1\\onnx\\resnet18.onnx",
+  "generated_from": "E:\\DHBKDN\\HK7\\XLDL\\Proof\\XLDL2\\models\\resnet18_v1\\pytorch\\resnet18.pth"
+}

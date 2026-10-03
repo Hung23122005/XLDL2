@@ -1,0 +1,5 @@
+agent_id: agent_pytorch_cpu
+runtime:
+  backend: pytorch
+  device: cpu
+  provider: cpu

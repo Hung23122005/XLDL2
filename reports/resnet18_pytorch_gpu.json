@@ -1,0 +1,1333 @@
+{
+  "model_id": "resnet18_v1",
+  "source_framework": "pytorch",
+  "artifact_format": "pytorch",
+  "artifact_path": "E:\\DHBKDN\\HK7\\XLDL\\Proof\\XLDL2\\models\\resnet18_v1\\pytorch\\resnet18.pth",
+  "generated_from": null,
+  "agent_id": "agent_pytorch_gpu",
+  "model": "ResNet18",
+  "framework": "pytorch",
+  "backend": "pytorch",
+  "device": "gpu",
+  "provider": "cuda",
+  "batch_size": 1,
+  "profiler": "PyTorchProfiler",
+  "measurement_scope": "model execution using PyTorch native profiler and module forward hooks",
+  "warmup_iterations": 10,
+  "benchmark_iterations": 50,
+  "weights": null,
+  "performance": {
+    "avg_latency_ms": 9.815830000443384,
+    "throughput_samples_per_sec": 101.87625498351436,
+    "latencies_ms": [
+      10.970400006044656,
+      9.268599969800562,
+      9.744699986185879,
+      9.083300014026463,
+      8.976299955975264,
+      10.355699982028455,
+      9.857899975031614,
+      9.719700028654188,
+      9.556200006045401,
+      8.724700019229203,
+      9.35629999730736,
+      9.390499966684729,
+      9.431699989363551,
+      9.864299965556711,
+      10.264999989885837,
+      9.76960000116378,
+      9.955200017429888,
+      9.714100044220686,
+      9.830800001509488,
+      10.287300043273717,
+      9.759600041434169,
+      10.06170001346618,
+      10.52980002714321,
+      9.464200004003942,
+      9.412699961103499,
+      9.07930004177615,
+      9.552199975587428,
+      9.38449997920543,
+      8.95490002585575,
+      10.283100011292845,
+      11.323500017169863,
+      9.28219995694235,
+      9.267700021155179,
+      9.037200012244284,
+      10.40809997357428,
+      10.049299977254122,
+      8.09550000121817,
+      9.029300010297447,
+      7.985000032931566,
+      8.644399989861995,
+      7.718000037129968,
+      9.335200011264533,
+      9.467899973969907,
+      8.315500046592206,
+      10.631099983584136,
+      13.858499994967133,
+      12.71659997291863,
+      13.932099973317236,
+      9.129000012762845,
+      11.961099982727319
+    ],
+    "min_latency_ms": 7.718000037129968,
+    "max_latency_ms": 13.932099973317236
+  },
+  "memory": {
+    "allocated_bytes": 55983104,
+    "reserved_bytes": 94371840,
+    "max_allocated_bytes": 66153984,
+    "max_reserved_bytes": 94371840
+  },
+  "layers": [
+    {
+      "name": "layer2.1.conv1",
+      "type": "Conv2d",
+      "latency_ms": 0.7303000311367214,
+      "parameter_count": 147456,
+      "output_shape": [
+        1,
+        128,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "layer2.1.conv2",
+      "type": "Conv2d",
+      "latency_ms": 0.528500007931143,
+      "parameter_count": 147456,
+      "output_shape": [
+        1,
+        128,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "layer2.1.bn1",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.46740000834688544,
+      "parameter_count": 256,
+      "output_shape": [
+        1,
+        128,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "layer2.1.bn2",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.3836000105366111,
+      "parameter_count": 256,
+      "output_shape": [
+        1,
+        128,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "layer4.0.conv2",
+      "type": "Conv2d",
+      "latency_ms": 0.3305000136606395,
+      "parameter_count": 2359296,
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "layer4.1.conv1",
+      "type": "Conv2d",
+      "latency_ms": 0.32869999995455146,
+      "parameter_count": 2359296,
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "layer4.1.conv2",
+      "type": "Conv2d",
+      "latency_ms": 0.3279000520706177,
+      "parameter_count": 2359296,
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "layer2.0.relu",
+      "type": "ReLU",
+      "latency_ms": 0.3036000416614115,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        128,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "layer3.0.conv1",
+      "type": "Conv2d",
+      "latency_ms": 0.29289996018633246,
+      "parameter_count": 294912,
+      "output_shape": [
+        1,
+        256,
+        14,
+        14
+      ]
+    },
+    {
+      "name": "layer1.1.bn2",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.292200013063848,
+      "parameter_count": 128,
+      "output_shape": [
+        1,
+        64,
+        56,
+        56
+      ]
+    },
+    {
+      "name": "layer2.0.downsample.1",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.2896999940276146,
+      "parameter_count": 256,
+      "output_shape": [
+        1,
+        128,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "layer2.0.downsample.0",
+      "type": "Conv2d",
+      "latency_ms": 0.28849998489022255,
+      "parameter_count": 8192,
+      "output_shape": [
+        1,
+        128,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "layer2.1.relu",
+      "type": "ReLU",
+      "latency_ms": 0.2804999821819365,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        128,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "layer3.1.conv1",
+      "type": "Conv2d",
+      "latency_ms": 0.27849996695294976,
+      "parameter_count": 589824,
+      "output_shape": [
+        1,
+        256,
+        14,
+        14
+      ]
+    },
+    {
+      "name": "layer3.0.conv2",
+      "type": "Conv2d",
+      "latency_ms": 0.2702000201679766,
+      "parameter_count": 589824,
+      "output_shape": [
+        1,
+        256,
+        14,
+        14
+      ]
+    },
+    {
+      "name": "layer3.1.conv2",
+      "type": "Conv2d",
+      "latency_ms": 0.2620000159367919,
+      "parameter_count": 589824,
+      "output_shape": [
+        1,
+        256,
+        14,
+        14
+      ]
+    },
+    {
+      "name": "layer4.0.conv1",
+      "type": "Conv2d",
+      "latency_ms": 0.24919997667893767,
+      "parameter_count": 1179648,
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "conv1",
+      "type": "Conv2d",
+      "latency_ms": 0.2411000314168632,
+      "parameter_count": 9408,
+      "output_shape": [
+        1,
+        64,
+        112,
+        112
+      ]
+    },
+    {
+      "name": "layer2.0.conv2",
+      "type": "Conv2d",
+      "latency_ms": 0.23780000628903508,
+      "parameter_count": 147456,
+      "output_shape": [
+        1,
+        128,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "layer2.0.conv1",
+      "type": "Conv2d",
+      "latency_ms": 0.22609997540712357,
+      "parameter_count": 73728,
+      "output_shape": [
+        1,
+        128,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "fc",
+      "type": "Linear",
+      "latency_ms": 0.20050001330673695,
+      "parameter_count": 513000,
+      "output_shape": [
+        1,
+        1000
+      ]
+    },
+    {
+      "name": "layer3.0.bn1",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.19310001516714692,
+      "parameter_count": 512,
+      "output_shape": [
+        1,
+        256,
+        14,
+        14
+      ]
+    },
+    {
+      "name": "layer1.0.conv1",
+      "type": "Conv2d",
+      "latency_ms": 0.1886999816633761,
+      "parameter_count": 36864,
+      "output_shape": [
+        1,
+        64,
+        56,
+        56
+      ]
+    },
+    {
+      "name": "layer1.1.bn1",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.1878999755717814,
+      "parameter_count": 128,
+      "output_shape": [
+        1,
+        64,
+        56,
+        56
+      ]
+    },
+    {
+      "name": "layer1.1.conv1",
+      "type": "Conv2d",
+      "latency_ms": 0.18319999799132347,
+      "parameter_count": 36864,
+      "output_shape": [
+        1,
+        64,
+        56,
+        56
+      ]
+    },
+    {
+      "name": "bn1",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.18079997971653938,
+      "parameter_count": 128,
+      "output_shape": [
+        1,
+        64,
+        112,
+        112
+      ]
+    },
+    {
+      "name": "layer3.1.bn2",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.1800000318326056,
+      "parameter_count": 512,
+      "output_shape": [
+        1,
+        256,
+        14,
+        14
+      ]
+    },
+    {
+      "name": "layer1.0.conv2",
+      "type": "Conv2d",
+      "latency_ms": 0.1789000234566629,
+      "parameter_count": 36864,
+      "output_shape": [
+        1,
+        64,
+        56,
+        56
+      ]
+    },
+    {
+      "name": "layer4.0.downsample.0",
+      "type": "Conv2d",
+      "latency_ms": 0.17870002193376422,
+      "parameter_count": 131072,
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "layer3.0.bn2",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.17809995915740728,
+      "parameter_count": 512,
+      "output_shape": [
+        1,
+        256,
+        14,
+        14
+      ]
+    },
+    {
+      "name": "layer3.1.bn1",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.1778999576345086,
+      "parameter_count": 512,
+      "output_shape": [
+        1,
+        256,
+        14,
+        14
+      ]
+    },
+    {
+      "name": "layer1.1.conv2",
+      "type": "Conv2d",
+      "latency_ms": 0.17690000822767615,
+      "parameter_count": 36864,
+      "output_shape": [
+        1,
+        64,
+        56,
+        56
+      ]
+    },
+    {
+      "name": "layer2.0.bn1",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.1713000237941742,
+      "parameter_count": 256,
+      "output_shape": [
+        1,
+        128,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "layer1.0.bn1",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.17049995949491858,
+      "parameter_count": 128,
+      "output_shape": [
+        1,
+        64,
+        56,
+        56
+      ]
+    },
+    {
+      "name": "layer4.0.bn1",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.1700000138953328,
+      "parameter_count": 1024,
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "layer3.0.downsample.1",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.16930000856518745,
+      "parameter_count": 512,
+      "output_shape": [
+        1,
+        256,
+        14,
+        14
+      ]
+    },
+    {
+      "name": "layer2.0.bn2",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.16929995035752654,
+      "parameter_count": 256,
+      "output_shape": [
+        1,
+        128,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "layer4.0.bn2",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.16820000018924475,
+      "parameter_count": 1024,
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "layer4.1.bn1",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.16570003936067224,
+      "parameter_count": 1024,
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "layer3.0.downsample.0",
+      "type": "Conv2d",
+      "latency_ms": 0.1642999704927206,
+      "parameter_count": 32768,
+      "output_shape": [
+        1,
+        256,
+        14,
+        14
+      ]
+    },
+    {
+      "name": "layer4.1.bn2",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.16419996973127127,
+      "parameter_count": 1024,
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "layer1.0.bn2",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.16329996287822723,
+      "parameter_count": 128,
+      "output_shape": [
+        1,
+        64,
+        56,
+        56
+      ]
+    },
+    {
+      "name": "layer4.0.downsample.1",
+      "type": "BatchNorm2d",
+      "latency_ms": 0.1621000119484961,
+      "parameter_count": 1024,
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "avgpool",
+      "type": "AdaptiveAvgPool2d",
+      "latency_ms": 0.14439999358728528,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        512,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "layer2.1.relu",
+      "type": "ReLU",
+      "latency_ms": 0.1344000338576734,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        128,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "maxpool",
+      "type": "MaxPool2d",
+      "latency_ms": 0.12799998512491584,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        64,
+        56,
+        56
+      ]
+    },
+    {
+      "name": "layer4.0.relu",
+      "type": "ReLU",
+      "latency_ms": 0.1154000055976212,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "relu",
+      "type": "ReLU",
+      "latency_ms": 0.1094000181183219,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        64,
+        112,
+        112
+      ]
+    },
+    {
+      "name": "layer3.0.relu",
+      "type": "ReLU",
+      "latency_ms": 0.10570004815235734,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        256,
+        14,
+        14
+      ]
+    },
+    {
+      "name": "layer2.0.relu",
+      "type": "ReLU",
+      "latency_ms": 0.10260002454742789,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        128,
+        28,
+        28
+      ]
+    },
+    {
+      "name": "layer3.1.relu",
+      "type": "ReLU",
+      "latency_ms": 0.10229996405541897,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        256,
+        14,
+        14
+      ]
+    },
+    {
+      "name": "layer1.0.relu",
+      "type": "ReLU",
+      "latency_ms": 0.10110001312568784,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        64,
+        56,
+        56
+      ]
+    },
+    {
+      "name": "layer4.1.relu",
+      "type": "ReLU",
+      "latency_ms": 0.09940000018104911,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "layer1.1.relu",
+      "type": "ReLU",
+      "latency_ms": 0.09700004011392593,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        64,
+        56,
+        56
+      ]
+    },
+    {
+      "name": "layer3.1.relu",
+      "type": "ReLU",
+      "latency_ms": 0.09569997200742364,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        256,
+        14,
+        14
+      ]
+    },
+    {
+      "name": "layer3.0.relu",
+      "type": "ReLU",
+      "latency_ms": 0.09480002336204052,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        256,
+        14,
+        14
+      ]
+    },
+    {
+      "name": "layer1.0.relu",
+      "type": "ReLU",
+      "latency_ms": 0.09459996363148093,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        64,
+        56,
+        56
+      ]
+    },
+    {
+      "name": "layer4.1.relu",
+      "type": "ReLU",
+      "latency_ms": 0.09060004958882928,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "layer1.1.relu",
+      "type": "ReLU",
+      "latency_ms": 0.08969998452812433,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        64,
+        56,
+        56
+      ]
+    },
+    {
+      "name": "layer4.0.relu",
+      "type": "ReLU",
+      "latency_ms": 0.08399999933317304,
+      "parameter_count": 0,
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    }
+  ],
+  "operators": [
+    {
+      "name": "aten::conv2d",
+      "calls": 20,
+      "cpu_time_total_us": 5849.500000000002,
+      "cpu_time_self_us": 226.7999999999979,
+      "cpu_memory_bytes": 0,
+      "flops": 3627122688,
+      "device_time_total_us": 1786.7309999999925,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 9934848
+    },
+    {
+      "name": "aten::convolution",
+      "calls": 20,
+      "cpu_time_total_us": 5622.700000000004,
+      "cpu_time_self_us": 230.90000000000373,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 1786.7309999999925,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 9934848
+    },
+    {
+      "name": "aten::_convolution",
+      "calls": 20,
+      "cpu_time_total_us": 5391.800000000001,
+      "cpu_time_self_us": 311.4000000000003,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 1786.7309999999925,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 9934848
+    },
+    {
+      "name": "aten::cudnn_convolution",
+      "calls": 20,
+      "cpu_time_total_us": 5080.400000000001,
+      "cpu_time_self_us": 1822.4000000000024,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 1786.7309999999925,
+      "device_time_self_us": 1786.7309999999925,
+      "device_memory_bytes": 9934848
+    },
+    {
+      "name": "cudaLaunchKernel",
+      "calls": 86,
+      "cpu_time_total_us": 3655.8999999999983,
+      "cpu_time_self_us": 3655.8999999999983,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "aten::batch_norm",
+      "calls": 20,
+      "cpu_time_total_us": 3380.4000000000005,
+      "cpu_time_self_us": 150.10000000000218,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 151.54999999999836,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 10328064
+    },
+    {
+      "name": "aten::_batch_norm_impl_index",
+      "calls": 20,
+      "cpu_time_total_us": 3230.2999999999984,
+      "cpu_time_self_us": 204.19999999999936,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 151.54999999999836,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 10328064
+    },
+    {
+      "name": "aten::cudnn_batch_norm",
+      "calls": 20,
+      "cpu_time_total_us": 3026.099999999999,
+      "cpu_time_self_us": 1231.6000000000154,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 151.54999999999836,
+      "device_time_self_us": 151.54999999999836,
+      "device_memory_bytes": 10328064
+    },
+    {
+      "name": "Activity Buffer Request",
+      "calls": 1,
+      "cpu_time_total_us": 1595.3999999999999,
+      "cpu_time_self_us": 1595.3999999999999,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "aten::relu_",
+      "calls": 17,
+      "cpu_time_total_us": 1296.5999999999995,
+      "cpu_time_self_us": 247.00000000000045,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 78.84599999999864,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "aten::clamp_min_",
+      "calls": 17,
+      "cpu_time_total_us": 1049.599999999999,
+      "cpu_time_self_us": 347.1999999999971,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 78.84599999999864,
+      "device_time_self_us": 78.84599999999864,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "sm86_xmma_fprop_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize64x32x64_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel__5x_cudnn",
+      "calls": 12,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 849.9120000000003,
+      "device_time_self_us": 849.9120000000003,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "aten::linear",
+      "calls": 1,
+      "cpu_time_total_us": 755.3999999999978,
+      "cpu_time_self_us": 42.599999999998545,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 15.359999999998763,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 4096
+    },
+    {
+      "name": "aten::empty",
+      "calls": 80,
+      "cpu_time_total_us": 707.4999999999936,
+      "cpu_time_self_us": 707.4999999999936,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 10328064
+    },
+    {
+      "name": "aten::addmm",
+      "calls": 1,
+      "cpu_time_total_us": 687.3999999999996,
+      "cpu_time_self_us": 181.39999999999964,
+      "cpu_memory_bytes": 0,
+      "flops": 1024000,
+      "device_time_total_us": 15.359999999998763,
+      "device_time_self_us": 15.359999999998763,
+      "device_memory_bytes": 4096
+    },
+    {
+      "name": "_ZN5cudnn19engines_precompiled16nchwToNhwcKernelIfffLb0ELb1EL21cudnnKernelDataType_t2EEEvNS0_18nchw2nhwc_params_tIT1_EEPKT_PT0_",
+      "calls": 24,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 604.1519999999973,
+      "device_time_self_us": 604.1519999999973,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "aten::empty_like",
+      "calls": 20,
+      "cpu_time_total_us": 455.39999999999736,
+      "cpu_time_self_us": 154.69999999999527,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 10328064
+    },
+    {
+      "name": "aten::add_",
+      "calls": 8,
+      "cpu_time_total_us": 450.60000000000036,
+      "cpu_time_self_us": 189.39999999999964,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 37.887000000000626,
+      "device_time_self_us": 37.887000000000626,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "aten::adaptive_avg_pool2d",
+      "calls": 1,
+      "cpu_time_total_us": 354.0,
+      "cpu_time_self_us": 15.0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 3.0720000000001164,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 2048
+    },
+    {
+      "name": "aten::mean",
+      "calls": 1,
+      "cpu_time_total_us": 339.0,
+      "cpu_time_self_us": 263.2999999999993,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 3.0720000000001164,
+      "device_time_self_us": 3.0720000000001164,
+      "device_memory_bytes": 2048
+    },
+    {
+      "name": "cudaLaunchKernelExC",
+      "calls": 12,
+      "cpu_time_total_us": 226.0000000000009,
+      "cpu_time_self_us": 226.0000000000009,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "_5x_cudnn_ampere_scudnn_winograd_128x128_ldg1_ldg4_relu_tile148t_nt_v1",
+      "calls": 4,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 189.4379999999992,
+      "device_time_self_us": 189.4379999999992,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "_ZN5cudnn26bn_fw_inf_1C11_kernel_NCHWIffLb1ELi1EEEvT0_S1_17cudnnTensorStructPKT_S2_PS3_S2_PKS1_S8_S8_S8_S1_",
+      "calls": 20,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 151.54999999999836,
+      "device_time_self_us": 151.54999999999836,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "cudaMemsetAsync",
+      "calls": 9,
+      "cpu_time_total_us": 142.4999999999991,
+      "cpu_time_self_us": 142.4999999999991,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "aten::max_pool2d",
+      "calls": 1,
+      "cpu_time_total_us": 95.09999999999945,
+      "cpu_time_self_us": 11.5,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 37.88799999999992,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 802816
+    },
+    {
+      "name": "aten::max_pool2d_with_indices",
+      "calls": 1,
+      "cpu_time_total_us": 83.59999999999945,
+      "cpu_time_self_us": 42.899999999999636,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 37.88799999999992,
+      "device_time_self_us": 37.88799999999992,
+      "device_memory_bytes": 2637824
+    },
+    {
+      "name": "_ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__a62a4dcd_16_TensorCompare_cu_71e06f4e19launch_clamp_scalarERNS_18TensorIteratorBaseEN3c106ScalarES6_NS0_6detail11ClampLimitsEENKUlvE_clEvENKUlvE5_clEvEUlfE_St5arrayIPcLy2EELb0EEEviT0_T1_",
+      "calls": 17,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 78.84599999999864,
+      "device_time_self_us": 78.84599999999864,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "cudaFuncGetAttributes",
+      "calls": 12,
+      "cpu_time_total_us": 77.40000000000055,
+      "cpu_time_self_us": 77.40000000000055,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "_5x_cudnn_ampere_scudnn_128x64_relu_xregs_large_nn_v1",
+      "calls": 1,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 76.79899999999998,
+      "device_time_self_us": 76.79899999999998,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "aten::view",
+      "calls": 21,
+      "cpu_time_total_us": 75.19999999999527,
+      "cpu_time_self_us": 75.19999999999527,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "_ZN2at6native52_GLOBAL__N__71d79c19_19_DilatedMaxPool2d_cu_9872839c21max_pool_forward_nchwIfiEEvT0_PKT_xxxiiiiiiiiiiPS4_Px",
+      "calls": 1,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 37.88799999999992,
+      "device_time_self_us": 37.88799999999992,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "_ZN2at6native29vectorized_elementwise_kernelILi4ENS0_15CUDAFunctor_addIfEESt5arrayIPcLy3EELb0EEEviT0_T1_",
+      "calls": 8,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 37.887000000000626,
+      "device_time_self_us": 37.887000000000626,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "cudaDeviceSynchronize",
+      "calls": 2,
+      "cpu_time_total_us": 27.999999999996362,
+      "cpu_time_self_us": 27.999999999996362,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "_Z23implicit_convolve_sgemmIffiLi128ELi5ELi5ELi3ELi3ELi3ELi1ELb0ELb0ELb1EEviiiPKT_iPT0_S2_18kernel_conv_paramsyT1_ffiPKS3_S8_bbii",
+      "calls": 2,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 27.646999999999025,
+      "device_time_self_us": 27.646999999999025,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "aten::flatten",
+      "calls": 1,
+      "cpu_time_total_us": 27.399999999999636,
+      "cpu_time_self_us": 12.299999999999272,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "aten::t",
+      "calls": 1,
+      "cpu_time_total_us": 25.399999999999636,
+      "cpu_time_self_us": 11.799999999999272,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "_Z26precomputed_convolve_sgemmIfiLi1024ELi5ELi5ELi4ELi3ELi3ELi1ELb0EEviiiPKT_iPS0_S2_18kernel_conv_paramsyT0_ffibbS2_S2_Pi",
+      "calls": 1,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 20.47899999999936,
+      "device_time_self_us": 20.47899999999936,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "_ZN8internal5gemvx6kernelIiiffffLb0ELb1ELb1ELb0ELi5ELb0E18cublasGemvParamsExIi30cublasGemvTensorStridedBatchedIKfES5_S3_IfEfEEENSt9enable_ifIXntT5_EvE4typeET11_",
+      "calls": 1,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 15.359999999998763,
+      "device_time_self_us": 15.359999999998763,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "aten::transpose",
+      "calls": 1,
+      "cpu_time_total_us": 13.600000000000364,
+      "cpu_time_self_us": 9.600000000000364,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "_ZN5cudnn8winograd27generateWinogradTilesKernelILi0EffEEvNS0_27GenerateWinogradTilesParamsIT0_T1_EE",
+      "calls": 4,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 12.287000000000262,
+      "device_time_self_us": 12.287000000000262,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "cudaGetErrorString",
+      "calls": 51,
+      "cpu_time_total_us": 11.199999999997999,
+      "cpu_time_self_us": 11.199999999997999,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "cudaPeekAtLastError",
+      "calls": 34,
+      "cpu_time_total_us": 7.800000000004275,
+      "cpu_time_self_us": 7.800000000004275,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "aten::as_strided",
+      "calls": 1,
+      "cpu_time_total_us": 4.0,
+      "cpu_time_self_us": 4.0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "_ZN2at6native13reduce_kernelILi512ELi1ENS0_8ReduceOpIfNS0_7MeanOpsIffffEEjfLi4ELi4EEEEEvT1_",
+      "calls": 1,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 3.0720000000001164,
+      "device_time_self_us": 3.0720000000001164,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "_ZN14cask__5x_cudnn20computeOffsetsKernelILb0ELb0EEEvNS_20ComputeOffsetsParamsE",
+      "calls": 1,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 2.048999999999978,
+      "device_time_self_us": 2.048999999999978,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "_ZN5cudnn3cnn23kern_precompute_indicesILb0EEEvPiiiiii",
+      "calls": 1,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 2.047999999998865,
+      "device_time_self_us": 2.047999999998865,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "Memset (Device)",
+      "calls": 8,
+      "cpu_time_total_us": 0,
+      "cpu_time_self_us": 0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 1.9199999999982538,
+      "device_time_self_us": 1.9199999999982538,
+      "device_memory_bytes": 0
+    },
+    {
+      "name": "[memory]",
+      "calls": 43,
+      "cpu_time_total_us": 0.0,
+      "cpu_time_self_us": 0.0,
+      "cpu_memory_bytes": 0,
+      "flops": 0,
+      "device_time_total_us": 0,
+      "device_time_self_us": 0,
+      "device_memory_bytes": -21071872
+    }
+  ]
+}

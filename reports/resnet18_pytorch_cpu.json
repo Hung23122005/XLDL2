@@ -1,0 +1,23 @@
+{
+  "model_id": "resnet18_v1",
+  "source_framework": "pytorch",
+  "artifact_format": "pytorch",
+  "artifact_path": "E:\\DHBKDN\\HK7\\XLDL\\Proof\\XLDL2\\models\\resnet18_v1\\pytorch\\resnet18.pth",
+  "generated_from": null,
+  "agent_id": "agent_pytorch_cpu",
+  "model": "ResNet18",
+  "framework": "pytorch",
+  "backend": "pytorch",
+  "device": "cpu",
+  "provider": "cpu",
+  "batch_size": 1,
+  "profiler": "BasicProfiler",
+  "measurement_scope": "predict API including input conversion and output transfer to CPU",
+  "warmup_iterations": 10,
+  "benchmark_iterations": 50,
+  "weights": null,
+  "performance": {
+    "avg_latency_ms": 63.91260399832391,
+    "throughput_samples_per_sec": 15.646366091205183
+  }
+}

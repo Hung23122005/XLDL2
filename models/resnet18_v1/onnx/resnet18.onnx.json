@@ -1,0 +1,21 @@
+{
+  "signature": "54ec331012ddc578976692dac9c43d772fc6ddb78f6b68771521c8c00fedd0ae",
+  "model_id": "resnet18_v1",
+  "generated_from": "E:\\DHBKDN\\HK7\\XLDL\\Proof\\XLDL2\\models\\resnet18_v1\\pytorch\\resnet18.pth",
+  "source_sha256": "2f090c483b2f0a0212d1d52b0566768675697515be6ab1c8f3e4340f3dab13a9",
+  "validation": {
+    "rtol": 0.001,
+    "atol": 0.0001,
+    "checks": [
+      {
+        "batch_size": 1,
+        "max_abs_error": 3.5762786865234375e-06
+      },
+      {
+        "batch_size": 2,
+        "max_abs_error": 3.337860107421875e-06
+      }
+    ]
+  },
+  "sha256": "1503e7482ba812f7820dcf04bb9b12a305a5b39f702533b1fc827270e4d46033"
+}

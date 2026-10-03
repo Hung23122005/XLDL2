@@ -30,6 +30,7 @@ class ONNXRuntimeBackend(_BaseBackend):
 
         self.graph_optimization_level = onnxruntime.GraphOptimizationLevel.ORT_ENABLE_ALL
         self.providers = None
+        self.strict_provider = False
         graph_optimization_level_all = ['ORT_DISABLE_ALL', 'ORT_ENABLE_BASIC', 'ORT_ENABLE_EXTENDED', 'ORT_ENABLE_ALL']
         for option in backend_options.split(','):
             if option:
@@ -42,14 +43,41 @@ class ONNXRuntimeBackend(_BaseBackend):
                         raise
                 elif key == 'providers':
                     self.providers = value[0].replace(' ', '').split('+')
+                elif key == 'strict_provider':
+                    if value != ['true'] and value != ['false']:
+                        raise ValueError('strict_provider must be true or false')
+                    self.strict_provider = value == ['true']
                 elif key == 'help':
                     print("backend %s options help:" % self.__class__)
                     print("    graph_optimization_level:           set session_options.graph_optimization_level from %s (default)" % ', '.join(graph_optimization_level_all))
                     print("    providers:                          InferenceSession's providers option, format like: CUDAExecutionProvider+CPUxecutionProvider etc. (default: not set, means all available)")
                     print("    help:                               print this help and exit")
+                    print("    strict_provider:                    reject provider fallback (true/false, default false)")
                     sys.exit(0)
                 else:
                     raise RuntimeError("Unknown backend_options: %s" % key)
+
+    def _create_session(self, options):
+        # Opt-in strictness for Agent callers; existing PRoof defaults are unchanged.
+        if self.strict_provider:
+            if not self.providers or len(self.providers) != 1:
+                raise RuntimeError('strict_provider requires exactly one provider')
+            provider = self.providers[0]
+            if provider not in onnxruntime.get_available_providers():
+                raise RuntimeError(f'{provider} is not available')
+            if provider != 'CPUExecutionProvider':
+                options.add_session_config_entry('session.disable_cpu_ep_fallback', '1')
+        if self.providers and 'CUDAExecutionProvider' in self.providers:
+            # PRoof runs in a separate process and must preload its own DLLs.
+            from ort_runtime import prepare_cuda_runtime
+            prepare_cuda_runtime()
+        session = onnxruntime.InferenceSession(
+            self.model.SerializeToString(), options, providers=self.providers)
+        if self.strict_provider:
+            session.disable_fallback()
+            if self.providers[0] not in session.get_providers():
+                raise RuntimeError(f'{self.providers[0]} was not activated; refusing fallback')
+        return session
 
     def version_info(self) -> str:
         info = f"Using backend {self.__class__}\n"
@@ -87,7 +115,7 @@ class ONNXRuntimeBackend(_BaseBackend):
         sess_options.graph_optimization_level = self.graph_optimization_level
         sess_options.profile_file_prefix = str(TMPDIR / ('onnxruntime_profile_' + Path(self.onnx_model).stem))
 
-        ort_sess = onnxruntime.InferenceSession(self.model.SerializeToString(), sess_options, providers=self.providers)
+        ort_sess = self._create_session(sess_options)
 
         log.debug("ort_sess.run ...")
 
@@ -132,7 +160,7 @@ class ONNXRuntimeBackend(_BaseBackend):
         sess_options.profile_file_prefix = str(TMPDIR / ('onnxruntime_profile_' + Path(self.onnx_model).stem))
         sess_options.optimized_model_filepath = str(TMPDIR / ('onnxruntime_optimized_model_' + Path(self.onnx_model).name))
 
-        ort_sess = onnxruntime.InferenceSession(self.model.SerializeToString(), sess_options, providers=self.providers)
+        ort_sess = self._create_session(sess_options)
 
         log.debug("ort_sess.run ...")
 

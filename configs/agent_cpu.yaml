@@ -1,0 +1,5 @@
+agent_id: agent_cpu
+runtime:
+  backend: onnxruntime
+  device: cpu
+  provider: CPUExecutionProvider

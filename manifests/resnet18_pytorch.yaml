@@ -1,0 +1,23 @@
+name: ResNet18
+version: 1.0.0
+task: classification
+framework:
+  name: pytorch
+inputs:
+  - type: image
+    shape: [batch_size, 3, 224, 224]
+    element_type: float32
+outputs:
+  - type: logits
+    shape: [batch_size, 1000]
+    element_type: float32
+preprocessing:
+  enabled: false
+post_processing:
+  enabled: false
+profiling:
+  batch_size: 1
+source:
+  type: torchvision
+  model_name: resnet18
+  weights: null

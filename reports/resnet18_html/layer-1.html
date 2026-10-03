@@ -1,0 +1,958 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>PRoof dataviewer</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <link href="assets/common.css" rel="stylesheet">
+  </head>
+  <body>
+
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">PRoof dataviewer</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <span class="navbar-text ms-4 me-md-4 me-auto">
+    Model: resnet18_clean.onnx
+  </span>
+  <!-- <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search"> -->
+</header>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3 sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <span data-feather="home" class="align-text-bottom"></span>
+              Summary
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="model.html">
+              <span data-feather="file" class="align-text-bottom"></span>
+              Model analyze
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">
+              <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+              End-to-end performance
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="layer-1.html">
+              <span data-feather="layers" class="align-text-bottom"></span>
+              Layer performance
+            </a>
+          </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+          <span>batch size</span>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          
+            <li class="nav-item">
+              <a class="nav-link active"
+                href="layer-1.html">
+                <span data-feather="grid" class="align-text-bottom"></span>
+               1
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Layer performance</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <pre class="mb-0">batch_size = 1</pre>
+        </div>
+      </div>
+
+      <h2 class="h4">Roofline chart</h2>
+      <canvas class="w-100" id="roofline-chart" width="900" height="380"></canvas>
+      <div class="mb-4">
+        <div>Coordinate axis type:</div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="chart-axis-type" id="chart-axis-type-linear" value="linear" autocomplete="off" checked
+            onclick="chart_set_axis(chart, 'linear')">
+          <label class="form-check-label" for="chart-axis-type-linear">Linear</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="chart-axis-type" id="chart-axis-type-logarithmic" value="logarithmic" autocomplete="off"
+            onclick="chart_set_axis(chart, 'logarithmic')">
+          <label class="form-check-label" for="chart-axis-type-logarithmic">Logarithmic</label>
+        </div>
+      </div>
+
+
+      <h2 class="h4">Layer details</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm font-monospace">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col" class="text-end">Median time (ms)</th>
+              <th scope="col" class="text-end">Percentage</th>
+              <th scope="col" class="text-end">Effective GFLOPS</th>
+              <th scope="col" class="text-end">Memory bandwidth (GB/s)</th>
+              <th scope="col" class="text-end">FLOPs</th>
+              <th scope="col" class="text-end">Memory I/O</th>
+              <th scope="col p-0" class="text-end"></th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <th>1</th>
+                <td>/relu/Relu_output_0_nchwc</td>
+                <td class="text-end">0.567000</td>
+                <td class="text-end">6.95%</td>
+                <td class="text-end">419.106765</td>
+                <td class="text-end">6.792353</td>
+                <td class="text-end">237.634 M</td>
+                <td class="text-end">3.851 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-1-extra" role="button" aria-expanded="false" aria-controls="layers-1-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-1-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/conv1/Conv&#39;, &#39;/relu/Relu&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>2</th>
+                <td>/maxpool/MaxPool_output_0_nchwc</td>
+                <td class="text-end">0.071000</td>
+                <td class="text-end">0.87%</td>
+                <td class="text-end">25.441352</td>
+                <td class="text-end">56.536338</td>
+                <td class="text-end">1.806 M</td>
+                <td class="text-end">4.014 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-2-extra" role="button" aria-expanded="false" aria-controls="layers-2-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-2-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/maxpool/MaxPool&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>3</th>
+                <td>/layer1/layer1.0/relu/Relu_output_0_nchwc</td>
+                <td class="text-end">0.503000</td>
+                <td class="text-end">6.16%</td>
+                <td class="text-end">460.462060</td>
+                <td class="text-end">3.485773</td>
+                <td class="text-end">231.612 M</td>
+                <td class="text-end">1.753 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-3-extra" role="button" aria-expanded="false" aria-controls="layers-3-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-3-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer1/layer1.0/conv1/Conv&#39;, &#39;/layer1/layer1.0/relu/Relu&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>4</th>
+                <td>/layer1/layer1.0/conv2/Conv_output_0_nchwc</td>
+                <td class="text-end">0.508000</td>
+                <td class="text-end">6.22%</td>
+                <td class="text-end">455.534866</td>
+                <td class="text-end">3.451465</td>
+                <td class="text-end">231.412 M</td>
+                <td class="text-end">1.753 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-4-extra" role="button" aria-expanded="false" aria-controls="layers-4-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-4-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer1/layer1.0/conv2/Conv&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>5</th>
+                <td>/layer1/layer1.1/relu/Relu_output_0_nchwc</td>
+                <td class="text-end">0.494500</td>
+                <td class="text-end">6.06%</td>
+                <td class="text-end">469.188724</td>
+                <td class="text-end">6.792671</td>
+                <td class="text-end">232.014 M</td>
+                <td class="text-end">3.359 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-5-extra" role="button" aria-expanded="false" aria-controls="layers-5-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-5-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer1/layer1.0/Add&#39;, &#39;/layer1/layer1.0/relu_1/Relu&#39;, &#39;/layer1/layer1.1/conv1/Conv&#39;, &#39;/layer1/layer1.1/relu/Relu&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>6</th>
+                <td>/layer1/layer1.1/conv2/Conv_output_0_nchwc</td>
+                <td class="text-end">0.484500</td>
+                <td class="text-end">5.94%</td>
+                <td class="text-end">477.629953</td>
+                <td class="text-end">3.618873</td>
+                <td class="text-end">231.412 M</td>
+                <td class="text-end">1.753 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-6-extra" role="button" aria-expanded="false" aria-controls="layers-6-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-6-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer1/layer1.1/conv2/Conv&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>7</th>
+                <td>/layer2/layer2.0/relu/Relu_output_0_nchwc</td>
+                <td class="text-end">0.259500</td>
+                <td class="text-end">3.18%</td>
+                <td class="text-end">447.813549</td>
+                <td class="text-end">11.966397</td>
+                <td class="text-end">116.208 M</td>
+                <td class="text-end">3.105 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-7-extra" role="button" aria-expanded="false" aria-controls="layers-7-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-7-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer1/layer1.1/Add&#39;, &#39;/layer1/layer1.1/relu_1/Relu&#39;, &#39;/layer2/layer2.0/conv1/Conv&#39;, &#39;/layer2/layer2.0/relu/Relu&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>8</th>
+                <td>/layer2/layer2.0/downsample/downsample.0/Conv_output_0_nchwc</td>
+                <td class="text-end">0.053500</td>
+                <td class="text-end">0.66%</td>
+                <td class="text-end">241.970243</td>
+                <td class="text-end">11.876486</td>
+                <td class="text-end">12.945 M</td>
+                <td class="text-end">0.635 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-8-extra" role="button" aria-expanded="false" aria-controls="layers-8-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-8-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer2/layer2.0/downsample/downsample.0/Conv&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>9</th>
+                <td>/layer2/layer2.0/conv2/Conv_output_0_nchwc</td>
+                <td class="text-end">0.475000</td>
+                <td class="text-end">5.82%</td>
+                <td class="text-end">486.971284</td>
+                <td class="text-end">2.932952</td>
+                <td class="text-end">231.311 M</td>
+                <td class="text-end">1.393 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-9-extra" role="button" aria-expanded="false" aria-controls="layers-9-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-9-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer2/layer2.0/conv2/Conv&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>10</th>
+                <td>/layer2/layer2.1/relu/Relu_output_0_nchwc</td>
+                <td class="text-end">0.469000</td>
+                <td class="text-end">5.75%</td>
+                <td class="text-end">493.843104</td>
+                <td class="text-end">4.682235</td>
+                <td class="text-end">231.612 M</td>
+                <td class="text-end">2.196 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-10-extra" role="button" aria-expanded="false" aria-controls="layers-10-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-10-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer2/layer2.0/Add&#39;, &#39;/layer2/layer2.0/relu_1/Relu&#39;, &#39;/layer2/layer2.1/conv1/Conv&#39;, &#39;/layer2/layer2.1/relu/Relu&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>11</th>
+                <td>/layer2/layer2.1/conv2/Conv_output_0_nchwc</td>
+                <td class="text-end">0.480500</td>
+                <td class="text-end">5.89%</td>
+                <td class="text-end">481.397211</td>
+                <td class="text-end">2.899380</td>
+                <td class="text-end">231.311 M</td>
+                <td class="text-end">1.393 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-11-extra" role="button" aria-expanded="false" aria-controls="layers-11-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-11-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer2/layer2.1/conv2/Conv&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>12</th>
+                <td>/layer3/layer3.0/relu/Relu_output_0_nchwc</td>
+                <td class="text-end">0.264000</td>
+                <td class="text-end">3.23%</td>
+                <td class="text-end">439.040000</td>
+                <td class="text-end">9.793939</td>
+                <td class="text-end">115.907 M</td>
+                <td class="text-end">2.586 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-12-extra" role="button" aria-expanded="false" aria-controls="layers-12-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-12-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer2/layer2.1/Add&#39;, &#39;/layer2/layer2.1/relu_1/Relu&#39;, &#39;/layer3/layer3.0/conv1/Conv&#39;, &#39;/layer3/layer3.0/relu/Relu&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>13</th>
+                <td>/layer3/layer3.0/downsample/downsample.0/Conv_output_0_nchwc</td>
+                <td class="text-end">0.053500</td>
+                <td class="text-end">0.66%</td>
+                <td class="text-end">241.032374</td>
+                <td class="text-end">8.096299</td>
+                <td class="text-end">12.895 M</td>
+                <td class="text-end">0.433 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-13-extra" role="button" aria-expanded="false" aria-controls="layers-13-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-13-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer3/layer3.0/downsample/downsample.0/Conv&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>14</th>
+                <td>/layer3/layer3.0/conv2/Conv_output_0_nchwc</td>
+                <td class="text-end">0.484500</td>
+                <td class="text-end">5.94%</td>
+                <td class="text-end">477.319265</td>
+                <td class="text-end">5.700161</td>
+                <td class="text-end">231.261 M</td>
+                <td class="text-end">2.762 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-14-extra" role="button" aria-expanded="false" aria-controls="layers-14-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-14-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer3/layer3.0/conv2/Conv&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>15</th>
+                <td>/layer3/layer3.1/relu/Relu_output_0_nchwc</td>
+                <td class="text-end">0.475500</td>
+                <td class="text-end">5.83%</td>
+                <td class="text-end">486.670267</td>
+                <td class="text-end">6.652231</td>
+                <td class="text-end">231.412 M</td>
+                <td class="text-end">3.163 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-15-extra" role="button" aria-expanded="false" aria-controls="layers-15-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-15-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer3/layer3.0/Add&#39;, &#39;/layer3/layer3.0/relu_1/Relu&#39;, &#39;/layer3/layer3.1/conv1/Conv&#39;, &#39;/layer3/layer3.1/relu/Relu&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>16</th>
+                <td>/layer3/layer3.1/conv2/Conv_output_0_nchwc</td>
+                <td class="text-end">0.463000</td>
+                <td class="text-end">5.67%</td>
+                <td class="text-end">499.484199</td>
+                <td class="text-end">5.964855</td>
+                <td class="text-end">231.261 M</td>
+                <td class="text-end">2.762 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-16-extra" role="button" aria-expanded="false" aria-controls="layers-16-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-16-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer3/layer3.1/conv2/Conv&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>17</th>
+                <td>/layer4/layer4.0/relu/Relu_output_0_nchwc</td>
+                <td class="text-end">0.285500</td>
+                <td class="text-end">3.50%</td>
+                <td class="text-end">405.450200</td>
+                <td class="text-end">18.995110</td>
+                <td class="text-end">115.756 M</td>
+                <td class="text-end">5.423 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-17-extra" role="button" aria-expanded="false" aria-controls="layers-17-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-17-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer3/layer3.1/Add&#39;, &#39;/layer3/layer3.1/relu_1/Relu&#39;, &#39;/layer4/layer4.0/conv1/Conv&#39;, &#39;/layer4/layer4.0/relu/Relu&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>18</th>
+                <td>/layer4/layer4.0/downsample/downsample.0/Conv_output_0_nchwc</td>
+                <td class="text-end">0.062000</td>
+                <td class="text-end">0.76%</td>
+                <td class="text-end">207.582968</td>
+                <td class="text-end">10.917161</td>
+                <td class="text-end">12.870 M</td>
+                <td class="text-end">0.677 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-18-extra" role="button" aria-expanded="false" aria-controls="layers-18-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-18-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer4/layer4.0/downsample/downsample.0/Conv&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>19</th>
+                <td>/layer4/layer4.0/conv2/Conv_output_0_nchwc</td>
+                <td class="text-end">0.522500</td>
+                <td class="text-end">6.40%</td>
+                <td class="text-end">442.557122</td>
+                <td class="text-end">18.449638</td>
+                <td class="text-end">231.236 M</td>
+                <td class="text-end">9.640 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-19-extra" role="button" aria-expanded="false" aria-controls="layers-19-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-19-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer4/layer4.0/conv2/Conv&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>20</th>
+                <td>/layer4/layer4.1/relu/Relu_output_0_nchwc</td>
+                <td class="text-end">0.529500</td>
+                <td class="text-end">6.49%</td>
+                <td class="text-end">436.848650</td>
+                <td class="text-end">18.584778</td>
+                <td class="text-end">231.311 M</td>
+                <td class="text-end">9.841 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-20-extra" role="button" aria-expanded="false" aria-controls="layers-20-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-20-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer4/layer4.0/Add&#39;, &#39;/layer4/layer4.0/relu_1/Relu&#39;, &#39;/layer4/layer4.1/conv1/Conv&#39;, &#39;/layer4/layer4.1/relu/Relu&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>21</th>
+                <td>/layer4/layer4.1/conv2/Conv_output_0_nchwc</td>
+                <td class="text-end">0.528000</td>
+                <td class="text-end">6.47%</td>
+                <td class="text-end">437.947152</td>
+                <td class="text-end">18.257455</td>
+                <td class="text-end">231.236 M</td>
+                <td class="text-end">9.640 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-21-extra" role="button" aria-expanded="false" aria-controls="layers-21-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-21-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer4/layer4.1/conv2/Conv&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>22</th>
+                <td>/avgpool/GlobalAveragePool_output_0_nchwc</td>
+                <td class="text-end">0.030000</td>
+                <td class="text-end">0.37%</td>
+                <td class="text-end">2.525867</td>
+                <td class="text-end">6.758400</td>
+                <td class="text-end">0.076 M</td>
+                <td class="text-end">0.203 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-22-extra" role="button" aria-expanded="false" aria-controls="layers-22-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-22-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/layer4/layer4.1/Add&#39;, &#39;/layer4/layer4.1/relu_1/Relu&#39;, &#39;/avgpool/GlobalAveragePool&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>23</th>
+                <td>/Flatten</td>
+                <td class="text-end">0.020000</td>
+                <td class="text-end">0.25%</td>
+                <td class="text-end">0.000000</td>
+                <td class="text-end">0.000000</td>
+                <td class="text-end">0.000 M</td>
+                <td class="text-end">0.000 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-23-extra" role="button" aria-expanded="false" aria-controls="layers-23-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-23-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/Flatten&#39;]}</small></div></td>
+                </tr>
+              
+            
+              <tr>
+                <th>24</th>
+                <td>/fc/Gemm</td>
+                <td class="text-end">0.078500</td>
+                <td class="text-end">0.96%</td>
+                <td class="text-end">13.057325</td>
+                <td class="text-end">26.217172</td>
+                <td class="text-end">1.025 M</td>
+                <td class="text-end">2.058 MB</td>
+                
+                  <td class="text-end">
+                    <a data-bs-toggle="collapse" href="#layers-24-extra" role="button" aria-expanded="false" aria-controls="layers-24-extra">More</a>
+                  </td>
+                
+              </tr>
+              
+                <tr></tr>
+                <tr>
+                  <th class="p-0"></th>
+                  <td class="p-0"colspan="8"><div class="collapse" id="layers-24-extra"><small>{&#39;onnx_nodes&#39;: [&#39;/fc/Gemm&#39;]}</small></div></td>
+                </tr>
+              
+            
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js" integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous"></script>
+    <script src="assets/common.js"></script>
+    <script src="assets/roofline-chart.js"></script>
+    <script>
+      'use strict'
+
+      // Graphs
+      const ctx = document.getElementById('roofline-chart')
+
+      let raw_data = [
+        
+          {
+            x: 61.70273863334219,
+            y: 419.10676543209877,
+            r: 5,
+            time: 0.000567,
+            memory: 6.792352733686067,
+            percentage: 6.946826758147511,
+            idx: 1,
+            name: "/relu/Relu_output_0_nchwc"
+          },
+        
+          {
+            x: 0.45,
+            y: 25.441352112676057,
+            r: 5,
+            time: 7.1e-05,
+            memory: 56.53633802816901,
+            percentage: 0.8698848321489828,
+            idx: 2,
+            name: "/maxpool/MaxPool_output_0_nchwc"
+          },
+        
+          {
+            x: 132.09753248649437,
+            y: 460.46205964214715,
+            r: 5,
+            time: 0.000503,
+            memory: 3.4857733598409544,
+            percentage: 6.16270521930899,
+            idx: 3,
+            name: "/layer1/layer1.0/relu/Relu_output_0_nchwc"
+          },
+        
+          {
+            x: 131.98306322090815,
+            y: 455.5348661417323,
+            r: 5,
+            time: 0.000508,
+            memory: 3.451464566929134,
+            percentage: 6.223964714530751,
+            idx: 4,
+            name: "/layer1/layer1.0/conv2/Conv_output_0_nchwc"
+          },
+        
+          {
+            x: 69.07278408657876,
+            y: 469.18872396359956,
+            r: 5,
+            time: 0.0004945,
+            memory: 6.792671385237614,
+            percentage: 6.058564077432001,
+            idx: 5,
+            name: "/layer1/layer1.1/relu/Relu_output_0_nchwc"
+          },
+        
+          {
+            x: 131.98306322090815,
+            y: 477.62995252837976,
+            r: 5,
+            time: 0.0004845,
+            memory: 3.6188730650154795,
+            percentage: 5.936045086988481,
+            idx: 6,
+            name: "/layer1/layer1.1/conv2/Conv_output_0_nchwc"
+          },
+        
+          {
+            x: 37.422588623248146,
+            y: 447.8135491329479,
+            r: 5,
+            time: 0.0002595,
+            memory: 11.96639691714836,
+            percentage: 3.1793678020093106,
+            idx: 7,
+            name: "/layer2/layer2.0/relu/Relu_output_0_nchwc"
+          },
+        
+          {
+            x: 20.37389202256245,
+            y: 241.9702429906542,
+            r: 5,
+            time: 5.35e-05,
+            memory: 11.876485981308411,
+            percentage: 0.6554765988728251,
+            idx: 8,
+            name: "/layer2/layer2.0/downsample/downsample.0/Conv_output_0_nchwc"
+          },
+        
+          {
+            x: 166.034546122749,
+            y: 486.9712842105263,
+            r: 5,
+            time: 0.000475,
+            memory: 2.932951578947369,
+            percentage: 5.819652046067138,
+            idx: 9,
+            name: "/layer2/layer2.0/conv2/Conv_output_0_nchwc"
+          },
+        
+          {
+            x: 105.47167171834927,
+            y: 493.8431044776119,
+            r: 5,
+            time: 0.000469,
+            memory: 4.682234541577825,
+            percentage: 5.746140651801027,
+            idx: 10,
+            name: "/layer2/layer2.1/relu/Relu_output_0_nchwc"
+          },
+        
+          {
+            x: 166.034546122749,
+            y: 481.3972112382934,
+            r: 5,
+            time: 0.0004805,
+            memory: 2.8993798126951087,
+            percentage: 5.887037490811074,
+            idx: 11,
+            name: "/layer2/layer2.1/conv2/Conv_output_0_nchwc"
+          },
+        
+          {
+            x: 44.82772277227723,
+            y: 439.03999999999996,
+            r: 5,
+            time: 0.000264,
+            memory: 9.793939393939395,
+            percentage: 3.2345013477088944,
+            idx: 12,
+            name: "/layer3/layer3.0/relu/Relu_output_0_nchwc"
+          },
+        
+          {
+            x: 29.77068557919622,
+            y: 241.0323738317757,
+            r: 5,
+            time: 5.35e-05,
+            memory: 8.096299065420562,
+            percentage: 0.6554765988728251,
+            idx: 13,
+            name: "/layer3/layer3.0/downsample/downsample.0/Conv_output_0_nchwc"
+          },
+        
+          {
+            x: 83.73785687801261,
+            y: 477.31926522187825,
+            r: 5,
+            time: 0.0004845,
+            memory: 5.7001609907120745,
+            percentage: 5.936045086988481,
+            idx: 14,
+            name: "/layer3/layer3.0/conv2/Conv_output_0_nchwc"
+          },
+        
+          {
+            x: 73.1589511168663,
+            y: 486.67026708727656,
+            r: 5,
+            time: 0.0004755,
+            memory: 6.652231335436382,
+            percentage: 5.8257779955893145,
+            idx: 15,
+            name: "/layer3/layer3.1/relu/Relu_output_0_nchwc"
+          },
+        
+          {
+            x: 83.73785687801261,
+            y: 499.4841987041037,
+            r: 5,
+            time: 0.000463,
+            memory: 5.964855291576675,
+            percentage: 5.672629257534916,
+            idx: 16,
+            name: "/layer3/layer3.1/conv2/Conv_output_0_nchwc"
+          },
+        
+          {
+            x: 21.34497734138973,
+            y: 405.4501996497373,
+            r: 5,
+            time: 0.0002855,
+            memory: 18.99511033274956,
+            percentage: 3.4979171771624595,
+            idx: 17,
+            name: "/layer4/layer4.0/relu/Relu_output_0_nchwc"
+          },
+        
+          {
+            x: 19.014372163388806,
+            y: 207.58296774193548,
+            r: 5,
+            time: 6.2e-05,
+            memory: 10.91716129032258,
+            percentage: 0.759617740749816,
+            idx: 18,
+            name: "/layer4/layer4.0/downsample/downsample.0/Conv_output_0_nchwc"
+          },
+        
+          {
+            x: 23.987306139791798,
+            y: 442.5571215311005,
+            r: 5,
+            time: 0.0005225,
+            memory: 18.449638277511962,
+            percentage: 6.401617250673852,
+            idx: 19,
+            name: "/layer4/layer4.0/conv2/Conv_output_0_nchwc"
+          },
+        
+          {
+            x: 23.505723204994798,
+            y: 436.84864966949954,
+            r: 5,
+            time: 0.0005295,
+            memory: 18.58477809254013,
+            percentage: 6.487380543984315,
+            idx: 20,
+            name: "/layer4/layer4.1/relu/Relu_output_0_nchwc"
+          },
+        
+          {
+            x: 23.987306139791798,
+            y: 437.94715151515146,
+            r: 5,
+            time: 0.000528,
+            memory: 18.257454545454543,
+            percentage: 6.469002695417789,
+            idx: 21,
+            name: "/layer4/layer4.1/conv2/Conv_output_0_nchwc"
+          },
+        
+          {
+            x: 0.37373737373737376,
+            y: 2.5258666666666665,
+            r: 5,
+            time: 3e-05,
+            memory: 6.7584,
+            percentage: 0.36755697133055615,
+            idx: 22,
+            name: "/avgpool/GlobalAveragePool_output_0_nchwc"
+          },
+        
+          {
+            x: 0,
+            y: 0.0,
+            r: 5,
+            time: 2e-05,
+            memory: 0.0,
+            percentage: 0.24503798088703743,
+            idx: 23,
+            name: "/Flatten"
+          },
+        
+          {
+            x: 0.49804474919924124,
+            y: 13.057324840764332,
+            r: 5,
+            time: 7.85e-05,
+            memory: 26.217171974522294,
+            percentage: 0.9617740749816217,
+            idx: 24,
+            name: "/fc/Gemm"
+          },
+        
+      ];
+
+      let chart = roofline_chart(ctx, raw_data);
+    </script>
+  </body>
+</html>
